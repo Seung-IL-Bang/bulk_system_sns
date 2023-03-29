@@ -1,12 +1,15 @@
 package com.example.fastcampusmysql.controller;
 
 import com.example.fastcampusmysql.domain.dto.MemberDto;
+import com.example.fastcampusmysql.domain.dto.MemberNicknameHistoryDto;
 import com.example.fastcampusmysql.domain.dto.MemberRegisterCommand;
 import com.example.fastcampusmysql.domain.entity.Member;
 import com.example.fastcampusmysql.domain.service.MemberReadService;
 import com.example.fastcampusmysql.domain.service.MemberWriteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -30,5 +33,10 @@ public class MemberController {
     public MemberDto changeNickName(@PathVariable Long id, @RequestBody String nickname) {
         memberWriteService.changeNickname(nickname, id);
         return memberReadService.getMember(id);
+    }
+
+    @GetMapping("/{memberId}/nickname-histories")
+    public List<MemberNicknameHistoryDto> getNicknameHistories(@PathVariable Long memberId) {
+        return memberReadService.getNicknameHistories(memberId);
     }
 }

@@ -21,6 +21,7 @@ public class MemberNicknameHistory {
         this.id = id;
         this.memberId = Objects.requireNonNull(memberId);
         this.nickname = Objects.requireNonNull(nickname);
-        this.createdAt = createdAt;
+        this.createdAt = createdAt == null ? LocalDateTime.now() : createdAt;
     }
+
 }
