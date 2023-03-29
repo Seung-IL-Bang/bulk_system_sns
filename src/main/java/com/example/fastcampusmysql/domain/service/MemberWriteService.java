@@ -12,7 +12,7 @@ public class MemberWriteService {
 
     final private MemberRepository memberRepository;
 
-    public Member create(MemberRegisterCommand command) {
+    public Member register(MemberRegisterCommand command) {
         /**
          *  목표
          *      - 회원정보(이메일, 닉네임, 생년월일)을 등록한다.
@@ -31,5 +31,16 @@ public class MemberWriteService {
                 .build();
 
         return memberRepository.save(member);
+    }
+
+    public void changeNickname(String newName, Long memberId) {
+        /**
+         * 1. 회원의 이름을 변경한다.
+         * 2. 변경한 내역을 저장한다.
+         */
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        member.changeNickname(newName);
+        memberRepository.save(member);
+        // TODO: 변경내역 히스토리를 저장한다.
     }
 }
